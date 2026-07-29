@@ -52,9 +52,44 @@ svg {
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
-  overflow: hidden;
+  overflow-x: hidden;
   height: 100vh;
   user-select: none;
+  position: relative;
+}
+
+/* Dynamic Glassmorphism Background Glow tied to Category Color */
+body::before {
+  content: '';
+  position: fixed;
+  top: -20%;
+  left: -10%;
+  width: 120vw;
+  height: 120vh;
+  background: radial-gradient(circle at 50% 30%, var(--accent-theme, rgba(56, 189, 248, 0.1)), transparent 50%);
+  opacity: 0.15;
+  z-index: -1;
+  pointer-events: none;
+  transition: background 0.8s ease-in-out;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-theme, var(--accent-cyan));
 }
 
 /* Layout Container */
@@ -473,6 +508,10 @@ body {
   box-shadow: 0 6px 16px rgba(0, 229, 255, 0.35);
 }
 
+.btn:active {
+  transform: scale(0.96) !important;
+}
+
 .btn-secondary {
   background: var(--bg-card);
   color: var(--text-main);
@@ -499,6 +538,18 @@ body {
 
 .tab-view.active {
   display: block;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .view-header {
@@ -571,6 +622,18 @@ select {
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+/* Scroll Reveal Animation Classes */
+.scroll-hidden {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .car-card.is-outlier {

@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       return `
         <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
-        <div class="car-card" data-id="${item.id}">
+        <div class="car-card scroll-hidden" data-id="${item.id}">
           <div class="card-media">
             <img src="${currentImage}" alt="${item.title}" onerror="this.src='assets/vehicles/everyday/01_bmw_3series.jpg'">
             
@@ -303,6 +303,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     }).join('');
 
     if (window.lucide) window.lucide.createIcons();
+    initScrollReveal();
+  }
+
+  // --- SCROLL REVEAL ANIMATIONS ---
+  function initScrollReveal() {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('scroll-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-hidden').forEach(el => {
+      observer.observe(el);
+    });
   }
 
   // --- FLOATING BRAND MENU BADGE HANDLER ---
