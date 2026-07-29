@@ -173,6 +173,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         state.listings = generateLocalStudioCarDataset();
       }
       
+      // Sort descending by resalePrice (or metrics) so Top 10 are the best
+      state.listings.sort((a, b) => (b.resalePrice || 0) - (a.resalePrice || 0));
+
       // Assign Top 10 rankings per category
       const counts = {};
       state.listings.forEach(item => {
