@@ -1253,139 +1253,7 @@ body[data-category-theme="ALL"] {
    MOBILE-FIRST RESPONSIVE BREAKPOINTS & OWNER FEEDBACK STYLES
    ========================================================================== */
 
-@media (max-width: 768px) {
-  body {
-    overflow-y: auto;
-  }
 
-  .app-container {
-    flex-direction: column;
-  }
-
-  /* 1. Header & Navigation Cleanup */
-  .floating-brand-badge {
-    top: 8px;
-    left: 12px;
-    padding: 6px 10px;
-  }
-
-  .brand-title-pill {
-    font-size: 13px;
-  }
-
-  .floating-brand-badge svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .top-header {
-    padding: 0 16px;
-    padding-left: 150px; /* Leave space for the floating brand badge */
-    height: 60px;
-  }
-
-  .search-bar {
-    width: 100%;
-    padding: 8px 12px;
-  }
-
-  .search-bar input {
-    font-size: 12px;
-  }
-
-  /* Hide unnecessary header elements to save space */
-  .header-status-badge {
-    display: none;
-  }
-
-  /* 2. Floating Menus & Voice Dock */
-  .floating-category-menu {
-    top: 55px;
-    left: 12px;
-    right: 12px;
-    min-width: auto;
-    width: auto;
-  }
-
-  .dock-mic-icon {
-    width: 44px;
-    height: 44px;
-  }
-
-  /* 3. Hero Banner & Layout Stacking */
-  .main-content.full-width {
-    padding-top: 60px;
-  }
-  
-  .tab-view {
-    padding: 16px;
-  }
-
-  .customer-hero-banner {
-    flex-direction: column;
-    padding: 20px;
-    gap: 16px;
-    text-align: left;
-  }
-
-  .customer-hero-banner h1 {
-    font-size: 22px;
-  }
-
-  .hero-trust-badges {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .view-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .filter-controls {
-    width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .filter-controls select {
-    flex: 1;
-    min-width: 140px;
-  }
-
-  /* 4. Grid Breakages & Fixed Widths */
-  .showroom-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-  }
-
-  .modal-card {
-    width: 95%;
-    padding: 20px;
-    margin: 0 auto;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-
-  .modal-expanding-card {
-    width: 95%;
-    padding: 20px;
-  }
-
-  .modal-expanding-card > div[style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  .modal-expanding-card img {
-    height: 200px !important;
-  }
-
-  .widescreen-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-}
 
 /* ==========================================================================
    STREAMLINED STUDIO VERIFIED BADGING & EXPANDING MODAL ANIMATIONS
@@ -1471,85 +1339,75 @@ body[data-category-theme="ALL"] {
 /* ==========================================================================
    Mobile Responsiveness (Smartphones)
    ========================================================================== */
+
+
+
+
+/* ==========================================================================
+   CONSOLIDATED MOBILE RESPONSIVENESS
+   ========================================================================== */
 @media (max-width: 768px) {
-  /* Layout constraints */
-  .main-content {
-    padding-top: 60px !important;
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
   }
+
   .app-container {
     flex-direction: column;
     overflow-x: hidden;
   }
-  
-  /* Header & Search Bar */
-  .top-header {
-    flex-direction: column;
-    height: auto;
-    padding: 16px 20px;
-    gap: 12px;
-    align-items: stretch;
-  }
-  .search-bar {
-    width: 100% !important;
+
+  /* Header & Navigation Cleanup */
+  .floating-brand-badge {
+    top: 8px;
+    left: 12px;
+    padding: 6px 10px;
   }
   
-  /* Hero Banner */
-  .customer-hero-banner {
-    padding: 32px 20px !important;
-    text-align: center;
-    border-radius: 12px !important;
-    margin-bottom: 24px !important;
-  }
-  .customer-hero-banner h2 {
-    font-size: 28px !important;
-  }
-  .customer-hero-banner p {
-    font-size: 14px !important;
-  }
-  .hero-trust-badges {
-    justify-content: center !important;
+  .brand-title-pill {
+    font-size: 13px;
   }
 
-  /* Grid and Cards */
-  .showroom-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  .floating-category-menu {
+    top: 60px;
+    left: 12px;
+    width: calc(100vw - 24px) !important; /* Take up more horizontal space */
+  }
+
+  .main-content {
+    padding-top: 60px !important;
+  }
+
+  /* Filter Row Optimization */
+  .filter-controls {
+    flex-wrap: wrap;
+    justify-content: stretch !important;
+  }
+  
+  .filter-controls select {
+    flex: 1 1 calc(50% - 12px);
+    min-width: 140px;
+  }
+
+  /* Hero Banner Fix */
+  .customer-hero-banner {
+    padding: 40px 20px !important;
+  }
+
+  /* Car Card Grid Reflow */
+  .cars-grid {
+    grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
-  .tab-view {
-    padding: 16px !important;
-  }
-  .view-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
   
-  /* Badges and Menus */
-  .floating-brand-badge {
-    top: 10px;
-    left: 10px;
-    padding: 6px 12px;
-    z-index: 150;
-  }
-  .floating-category-menu {
-    top: 55px;
-    left: 10px;
-    min-width: calc(100vw - 20px);
-    z-index: 140;
-  }
-
-  /* Footer / Legal Bar */
-  .legal-disclaimer-bar {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-    padding: 16px;
-  }
-  .legal-disclaimer-bar .hero-trust-badges {
-    flex-wrap: wrap;
-    justify-content: center;
+  /* Modal Overlay Sizing */
+  .modal-card {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 20px 16px !important;
   }
 }
-
-
