@@ -1,7 +1,7 @@
 const stripeKey = process.env.STRIPE_SECRET_KEY || ('sk_test_' + '4eC39HqLyjWDarjtT1zdp7dc');
 const stripe = require('stripe')(stripeKey);
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Add CORS headers for local testing and Vercel edge cases
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
