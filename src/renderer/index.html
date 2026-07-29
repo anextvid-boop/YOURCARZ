@@ -103,16 +103,11 @@
           <button class="btn-clear-voice" id="btnClearVoiceQuery">Clear Voice Filter</button>
         </div>
 
-        <!-- Hero Customer Banner -->
-        <div class="customer-hero-banner">
-          <div>
-            <h1>Find YOUR Perfect Car Model &amp; Explore Variations</h1>
-            <p>Click any vehicle model card below to open its full-screen <strong>Model Variations Folder</strong> and compare all real photography listings!</p>
-          </div>
-          <div class="hero-trust-badges">
-            <span class="trust-pill"><i data-lucide="folder-search"></i> Model Variation Folders</span>
-            <span class="trust-pill"><i data-lucide="camera"></i> 100% Real Photography</span>
-            <span class="trust-pill"><i data-lucide="shield"></i> 7-Day Guarantee</span>
+        <!-- Premium Hero Customer Banner -->
+        <div class="customer-hero-banner" style="background-image: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9)), url('assets/vehicles/sports/01_porsche_911.jpg'); background-size: cover; background-position: center; border-radius: 16px; padding: 60px 40px; text-align: center; margin-bottom: 32px; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+          <div style="max-width: 800px; margin: 0 auto;">
+            <h1 style="font-family: var(--font-heading); font-size: 42px; font-weight: 900; color: #fff; margin-bottom: 16px; text-shadow: 0 4px 20px rgba(0,0,0,0.8);">Find YOUR Perfect Car Model</h1>
+            <p style="font-size: 16px; color: #94A3B8; max-width: 600px; margin: 0 auto;">Click any vehicle card below to explore its full-screen Model Variations Folder and compare all real photography listings!</p>
           </div>
         </div>
 
@@ -146,10 +141,17 @@
           <!-- Rendered via JS -->
         </div>
 
-        <!-- Mandatory Legal Disclaimer Footer Bar -->
-        <footer class="legal-disclaimer-bar">
-          <i data-lucide="scale"></i>
-          <span><strong>YOURCARZ Customer Protection Notice:</strong> All vehicles listed on YOURCARZ undergo independent HPI validation. Holding deposits (£250) are held securely in escrow and are 100% refundable if the vehicle fails physical inspection. Finance estimates are subject to status.</span>
+        <!-- Mandatory Legal Disclaimer & Trust Footer Bar -->
+        <footer class="legal-disclaimer-bar" style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="hero-trust-badges" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <span class="trust-pill" style="background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--text-main);"><i data-lucide="folder-search" style="width:14px; height:14px; margin-right:6px; color:var(--accent-cyan);"></i> Model Variation Folders</span>
+            <span class="trust-pill" style="background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--text-main);"><i data-lucide="camera" style="width:14px; height:14px; margin-right:6px; color:#F59E0B;"></i> 100% Real Photography</span>
+            <span class="trust-pill" style="background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--text-main);"><i data-lucide="shield-check" style="width:14px; height:14px; margin-right:6px; color:#00E676;"></i> HPI Checked & 7-Day Guarantee</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i data-lucide="scale"></i>
+            <span><strong>YOURCARZ Customer Protection Notice:</strong> All vehicles listed on YOURCARZ undergo independent HPI validation. Holding deposits (£250) are held securely in escrow and are 100% refundable if the vehicle fails physical inspection. Finance estimates are subject to status.</span>
+          </div>
         </footer>
       </section>
 
@@ -255,16 +257,6 @@
 
     </main>
 
-    <!-- FLOATING CENTER AI VOICE SEARCH DOCK (Touch Target Optimized to 44x44 min) -->
-    <div class="floating-voice-dock" id="btnFloatingVoiceDock" style="min-height: 44px; min-width: 44px; padding: 12px 20px;">
-      <div class="dock-mic-icon" style="min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center;">
-        <i data-lucide="mic"></i>
-      </div>
-      <div class="dock-text">
-        <strong>Speak Your Car Query</strong>
-        <span>Click to filter by voice note</span>
-      </div>
-    </div>
   </div>
 
   <!-- FULL-SCREEN Car Model Variations Folder Modal -->

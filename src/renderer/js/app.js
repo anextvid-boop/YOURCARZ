@@ -120,8 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     showroomGridContainer: document.getElementById('showroomGridContainer'),
     categorySectionTitle: document.getElementById('categorySectionTitle'),
 
-    // Floating Center Voice Search Dock
-    btnFloatingVoiceDock: document.getElementById('btnFloatingVoiceDock'),
+    // Voice Elements (Dock Removed)
     voiceModal: document.getElementById('voiceModal'),
     voiceQueryBanner: document.getElementById('voiceQueryBanner'),
     voiceQueryText: document.getElementById('voiceQueryText'),
@@ -139,6 +138,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function loadInitialData() {
     try {
       state.listings = generateLocalStudioCarDataset();
+      
+      // Assign Top 10 rankings per category
+      const counts = {};
+      state.listings.forEach(item => {
+        counts[item.category] = (counts[item.category] || 0) + 1;
+        item.rank = counts[item.category];
+      });
+
       updateCategoryTheme('ALL');
       renderShowroom();
     } catch (err) {
@@ -253,10 +260,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
       };
 
+      // Determine Category Styling
+      let catColor = '#94A3B8';
+      let catName = 'Vehicle';
+      if (item.category === 'FIRST_CAR') { catColor = '#38BDF8'; catName = 'First Car'; }
+      if (item.category === 'EVERYDAY') { catColor = '#00E676'; catName = 'Everyday'; }
+      if (item.category === 'LUXURY') { catColor = '#A855F7'; catName = 'Luxury'; }
+      if (item.category === 'SPORTS') { catColor = '#FF2D55'; catName = 'Sports'; }
+
+      // Top 10 Rank Badge
+      const rankBadge = item.rank <= 10 
+        ? `<div style="position: absolute; top: 12px; left: 12px; background: ${catColor}; color: #020617; font-weight: 900; font-size: 14px; padding: 4px 10px; border-radius: 8px; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">#${item.rank} <span style="font-size: 10px; opacity: 0.8; margin-left: 2px;">${catName}</span></div>`
+        : '';
+
       return `
         <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
-        <div class="car-card scroll-hidden" data-id="${item.id}">
+        <div class="car-card scroll-hidden" data-id="${item.id}" style="border-top: 3px solid ${catColor};">
           <div class="card-media">
+            ${rankBadge}
             <img src="${currentImage}" alt="${item.title}" onerror="this.src='assets/vehicles/everyday/01_bmw_3series.jpg'">
             
             <button class="photo-toggle-btn" onclick="window.togglePhotoMode('${item.id}')">
@@ -477,13 +498,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     };
 
-    if (elements.btnFloatingVoiceDock) elements.btnFloatingVoiceDock.addEventListener('click', startRecording);
-
-    window.simulateVoiceQuery = (queryText) => {
-      state.voiceQueryText = queryText;
-      elements.voiceModal?.classList.remove('active');
-      renderShowroom();
-    };
+    // --- VOICE MODAL HANDLERS (Floating Dock Removed) ---
+    if (elements.voiceModal && typeof lucide !== 'undefined') {
+      // We keep voice simulation logic in case the modal is triggered via another method (like search bar mic icon)
+      window.simulateVoiceQuery = function(queryText) {
+        state.voiceQueryText = queryText;
+        elements.voiceModal?.classList.remove('active');
+        renderShowroom();
+      };
+    }
 
     if (elements.btnClearVoiceQuery) {
       elements.btnClearVoiceQuery.addEventListener('click', () => {
