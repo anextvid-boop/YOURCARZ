@@ -1,0 +1,230 @@
+/* ==========================================================================
+   YOURCARZ AI Voice Co-Pilot Floating Badge & Subtitle Banner Stylesheet
+   ========================================================================== */
+
+.voice-assistant-floating-container {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.voice-assistant-floating-container * {
+  pointer-events: auto;
+}
+
+/* --- Subtitle Banner Overlay --- */
+.voice-subtitle-banner {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+  border-radius: 16px;
+  padding: 10px 18px;
+  max-width: 480px;
+  width: 90vw;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.voice-subtitle-banner.voice-hidden {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+.voice-badge-tag {
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  color: #0f172a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.voice-subtitle-text {
+  color: #f8fafc;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Floating Center Microphone Pill Button --- */
+.voice-mic-pill-btn {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  color: #f8fafc;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), 0 0 18px rgba(56, 189, 248, 0.25);
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.voice-mic-pill-btn:hover {
+  transform: scale(1.04);
+  border-color: #38bdf8;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 0 28px rgba(56, 189, 248, 0.45);
+}
+
+.voice-status-label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  background: linear-gradient(135deg, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- FSM State Colors & Glowing Animation --- */
+.voice-mic-pill-btn.voice-listening {
+  background: linear-gradient(135deg, #0284c7, #0f172a);
+  border-color: #38bdf8;
+  animation: voicePulseCyan 1.6s infinite ease-in-out;
+}
+
+.voice-mic-pill-btn.voice-processing {
+  background: linear-gradient(135deg, #d97706, #0f172a);
+  border-color: #f59e0b;
+}
+
+.voice-mic-pill-btn.voice-speaking {
+  background: linear-gradient(135deg, #7c3aed, #0f172a);
+  border-color: #a855f7;
+  animation: voicePulsePurple 1.6s infinite ease-in-out;
+}
+
+.voice-mic-pill-btn.voice-error {
+  background: linear-gradient(135deg, #dc2626, #0f172a);
+  border-color: #ef4444;
+}
+
+/* --- Audio Equalizer Bars --- */
+.voice-equalizer {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 16px;
+  width: 18px;
+}
+
+.eq-bar {
+  width: 3px;
+  height: 30%;
+  background: #38bdf8;
+  border-radius: 4px;
+  transition: height 0.1s ease;
+}
+
+.voice-speaking .eq-bar {
+  background: #c084fc;
+}
+
+/* --- Keyframe Animations --- */
+@keyframes voicePulseCyan {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6), 0 0 20px rgba(56, 189, 248, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(56, 189, 248, 0), 0 0 35px rgba(56, 189, 248, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0), 0 0 20px rgba(56, 189, 248, 0.4);
+  }
+}
+
+@keyframes voicePulsePurple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.6), 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(168, 85, 247, 0), 0 0 35px rgba(168, 85, 247, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0), 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+}
+
+/* --- Voice Help Modal Overlay --- */
+.voice-help-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.voice-help-modal-overlay.voice-modal-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.voice-help-modal-card {
+  background: #0f172a;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.25);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 540px;
+  padding: 24px;
+  color: #f8fafc;
+}
+
+.voice-help-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.voice-command-section {
+  margin-bottom: 16px;
+}
+
+.voice-command-section h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.voice-command-section code {
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+

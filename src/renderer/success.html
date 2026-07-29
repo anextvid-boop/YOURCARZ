@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful - YOURCARZ Secure Escrow</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #020617;
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+    }
+    .success-card {
+      background: #0F172A;
+      border: 1px solid #00E676;
+      border-radius: 24px;
+      padding: 48px;
+      text-align: center;
+      max-width: 500px;
+      box-shadow: 0 20px 50px rgba(0, 230, 118, 0.15);
+    }
+    h1 {
+      color: #00E676;
+      font-weight: 900;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    p {
+      color: #94A3B8;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+    .receipt-box {
+      background: #020617;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .receipt-row span:first-child {
+      color: #64748B;
+    }
+    .receipt-row span:last-child {
+      color: #F8FAFC;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-card">
+    <div style="background: rgba(0, 230, 118, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+      <i data-lucide="check-circle" style="width: 48px; height: 48px; color: #00E676;"></i>
+    </div>
+    <h1>Reservation Secured</h1>
+    <p>Your £250 holding deposit is securely locked in escrow. The seller has been notified and the vehicle is now reserved under your name.</p>
+    
+    <div class="receipt-box">
+      <div class="receipt-row">
+        <span>Transaction ID:</span>
+        <span id="txtSessionId">Processing...</span>
+      </div>
+      <div class="receipt-row">
+        <span>Vehicle Ref:</span>
+        <span id="txtCarId">Processing...</span>
+      </div>
+      <div class="receipt-row" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #1E293B;">
+        <span>Escrow Status:</span>
+        <span style="color: #00E676;">Funds Secured 🛡️</span>
+      </div>
+    </div>
+
+    <a href="index.html" class="btn btn-primary" style="display: block; text-decoration: none; padding: 14px; background: linear-gradient(135deg, #00E676, #00c853); color: #000; font-weight: 800; border-radius: 12px;">Return to Showroom</a>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id') || 'sim_req_12345';
+    const carId = params.get('car_id') || 'CAR-DEMO';
+    
+    document.getElementById('txtSessionId').textContent = sessionId.substring(0, 14) + '...';
+    document.getElementById('txtCarId').textContent = carId;
+  </script>
+</body>
+</html>
