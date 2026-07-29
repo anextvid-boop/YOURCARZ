@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       year: item.year,
       mileage: item.mileage,
       priceScraped: item.price,
-      resalePrice: item.price,
+      resalePrice: item.price + 1250, // £1,250 Brokerage Markup
       location: item.loc,
       fuelType: item.model.includes('Electric') ? 'Electric' : (item.model.includes('d') ? 'Diesel' : 'Petrol'),
       transmission: 'Automatic',
@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
               <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 10px 14px; border-radius: 10px;">
                 <div>
-                  <span style="font-size: 11px; color: var(--text-muted); display: block;">Cash Price</span>
+                  <span style="font-size: 11px; color: var(--text-muted); display: block;">Buy Now Price</span>
                   <strong style="font-size: 18px; color: var(--text-main);">£${cashPrice.toLocaleString('en-GB')}</strong>
                 </div>
                 <div style="text-align: right;">
@@ -424,8 +424,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
               </div>
 
-              <button class="btn btn-primary btn-full" onclick="window.unlockContactFromModal()" style="font-size: 13px; padding: 10px; margin-top: 4px; background: linear-gradient(135deg, #0284C7, #1E3A8A); color: #FFF; font-weight: 800;">
-                🔒 Unlock Contact (£49)
+              <button class="btn btn-primary btn-full" onclick="window.initiateSecureEscrow()" style="font-size: 13px; padding: 10px; margin-top: 4px; background: linear-gradient(135deg, #00E676, #00c853); color: #000; font-weight: 800;">
+                🛡️ Reserve & Buy via Secure Escrow
               </button>
             </div>
           `;
@@ -569,8 +569,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     modal.classList.add('active');
   };
 
-  window.unlockContactFromModal = function() {
-    alert('🔒 Initiating Stripe £49 Contact Unlock Session... Phone number & Facebook Direct Messenger details unlocked upon payment!');
+  window.initiateSecureEscrow = function() {
+    alert('🛡️ Initiating Secure Escrow Transaction... Buyer funds are securely held while you process the private seller payout and capture your markup spread.');
   };
 
   // Wire card click event to open expanding modal
