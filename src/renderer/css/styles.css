@@ -746,62 +746,6 @@ body[data-category-theme="ALL"] {
   }
 }
 
-/* Floating Center AI Voice Search Dock */
-.floating-voice-dock {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--accent-cyan);
-  padding: 10px 22px;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.3);
-  cursor: pointer;
-  z-index: 100;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.floating-voice-dock:hover {
-  transform: translateX(-50%) translateY(-4px);
-  background: rgba(30, 58, 138, 0.9);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.5);
-}
-
-.dock-mic-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #38BDF8, #0284C7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.5);
-}
-
-.dock-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.dock-text strong {
-  font-family: var(--font-heading);
-  font-size: 13px;
-  color: var(--text-main);
-  letter-spacing: 0.5px;
-}
-
-.dock-text span {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
 /* Large Modal for Model Variations Folder */
 .modal-card.modal-large {
   max-width: 960px;
@@ -1361,26 +1305,6 @@ body[data-category-theme="ALL"] {
     right: 12px;
     min-width: auto;
     width: auto;
-  }
-
-  .floating-voice-dock {
-    bottom: 20px;
-    left: auto;
-    right: 20px;
-    transform: none;
-    padding: 8px;
-    border-radius: 50%;
-    width: 56px;
-    height: 56px;
-    justify-content: center;
-  }
-  
-  .floating-voice-dock:hover {
-    transform: translateY(-4px);
-  }
-
-  .floating-voice-dock .dock-text {
-    display: none; /* Hide text on mobile, just show the MIC icon */
   }
 
   .dock-mic-icon {
