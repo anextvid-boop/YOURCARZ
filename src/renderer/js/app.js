@@ -134,10 +134,44 @@ document.addEventListener('DOMContentLoaded', async () => {
     modelVariationsContainer: document.getElementById('modelVariationsContainer')
   };
 
+  // Initialize Supabase Client
+  const supabaseUrl = 'https://lkbvrlqqcgtifebkwdrd.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxrYnZybHFxY2d0aWZlYmt3ZHJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzNTY3ODYsImV4cCI6MjEwMDkzMjc4Nn0.i3z71Iu5YEcDGqin4HVVZ4oZklqaNosmMl74ZMkn7iQ';
+  const supabase = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+
   // --- INITIAL DATA LOAD ---
   async function loadInitialData() {
     try {
-      state.listings = generateLocalStudioCarDataset();
+      if (supabase) {
+        const { data, error } = await supabase.from('vehicles').select('*');
+        if (error) throw error;
+        
+        if (data && data.length > 0) {
+          // Map DB schema to frontend schema
+          state.listings = data.map(dbItem => ({
+            id: dbItem.fb_listing_id,
+            title: dbItem.title,
+            make: dbItem.make,
+            model: dbItem.model,
+            year: dbItem.year,
+            mileage: dbItem.mileage,
+            priceScraped: dbItem.price_scraped,
+            resalePrice: dbItem.resale_price,
+            location: dbItem.location,
+            fuelType: dbItem.fuel_type,
+            transmission: dbItem.transmission,
+            category: dbItem.category,
+            images: dbItem.images_json || [],
+            status: dbItem.status,
+            viewMode: 'ai'
+          }));
+        } else {
+          // Fallback if DB is empty
+          state.listings = generateLocalStudioCarDataset();
+        }
+      } else {
+        state.listings = generateLocalStudioCarDataset();
+      }
       
       // Assign Top 10 rankings per category
       const counts = {};
@@ -149,7 +183,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateCategoryTheme('ALL');
       renderShowroom();
     } catch (err) {
-      console.error('Failed to load vehicle catalog:', err);
+      console.error('Failed to load vehicle catalog from DB:', err);
+      // Fallback
+      state.listings = generateLocalStudioCarDataset();
+      updateCategoryTheme('ALL');
+      renderShowroom();
     }
   }
 
