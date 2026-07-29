@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YOURCARZ - Next-Gen Luxury Automotive Marketplace</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/voice-assistant.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- PHASE 7: GLOBAL ERROR BOUNDARY -->
+  <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.error('[YOURCARZ SYSTEM STABILITY] Caught Global Error:', message);
+      const maintenanceUI = document.getElementById('globalMaintenanceUI');
+      if (maintenanceUI) maintenanceUI.style.display = 'flex';
+      // Suppress native browser error dialogue
+      return true; 
+    };
+
+    window.addEventListener('unhandledrejection', function(event) {
+      console.error('[YOURCARZ SYSTEM STABILITY] Unhandled Promise Rejection:', event.reason);
+      const maintenanceUI = document.getElementById('globalMaintenanceUI');
+      if (maintenanceUI) maintenanceUI.style.display = 'flex';
+    });
+  </script>
+</head>
+<body data-category-theme="ALL">
+  <div class="app-container">
+
+    <!-- FLOATING BRAND LOGO MENU BADGE (Responsive & Balanced) -->
+    <div class="floating-brand-badge" id="btnFloatingBrandBadge" title="Open YOURCARZ Selection Menu">
+      <div class="brand-logo-mark">
+        <svg viewBox="0 0 400 400" width="32" height="32">
+          <defs>
+            <linearGradient id="v4BabyBlueBadge" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38BDF8"/>
+              <stop offset="100%" stop-color="#0284C7"/>
+            </linearGradient>
+            <linearGradient id="v4DarkBlueBadge" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0F172A"/>
+              <stop offset="100%" stop-color="#020617"/>
+            </linearGradient>
+          </defs>
+          <circle cx="200" cy="200" r="175" fill="url(#v4DarkBlueBadge)" stroke="url(#v4BabyBlueBadge)" stroke-width="12"/>
+          <circle cx="200" cy="200" r="150" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6 6"/>
+          <g transform="translate(115, 95) scale(0.85)">
+            <path d="M100,20 L170,50 C170,140 135,190 100,220 C65,190 30,140 30,50 Z" fill="#1E3A8A" stroke="#FFFFFF" stroke-width="6"/>
+            <path d="M60,70 L100,140 L140,70 L120,70 L100,105 L80,70 Z" fill="#38BDF8"/>
+          </g>
+        </svg>
+      </div>
+      <span class="brand-title-pill">YOUR<span style="color: var(--accent-cyan);">CARZ</span></span>
+      <i data-lucide="chevron-down" style="width: 16px; height: 16px; color: var(--accent-cyan);"></i>
+    </div>
+
+    <!-- FLOATING BRAND CATEGORY MENU DROPDOWN (Color-Coded Pills) -->
+    <div class="floating-category-menu" id="floatingCategoryMenu">
+      <button class="menu-pill active" data-category="ALL">
+        <i data-lucide="sparkles" style="color: #F59E0B;"></i> All Featured Vehicles
+      </button>
+      <button class="menu-pill" data-category="FIRST_CAR">
+        <i data-lucide="car" style="color: #38BDF8;"></i> YOUR First Car
+      </button>
+      <button class="menu-pill" data-category="EVERYDAY">
+        <i data-lucide="shield-check" style="color: #00E676;"></i> YOUR Everyday Car
+      </button>
+      <button class="menu-pill" data-category="LUXURY">
+        <i data-lucide="gem" style="color: #A855F7;"></i> YOUR Luxury Car
+      </button>
+      <button class="menu-pill" data-category="SPORTS">
+        <i data-lucide="zap" style="color: #FF2D55;"></i> YOUR Sports Car
+      </button>
+      <button class="menu-pill" data-category="TOP10" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: #fff; border: none; box-shadow: 0 4px 14px rgba(245,158,11,0.4);">
+        <i data-lucide="trophy" style="color: #fff;"></i> Top 10 Picks
+      </button>
+    </div>
+
+    <!-- Main Full-Width Content Area -->
+    <main class="main-content full-width">
+      <!-- Top Header Bar -->
+      <header class="top-header">
+        <div class="search-bar">
+          <i data-lucide="search"></i>
+          <input type="text" id="globalSearchInput" placeholder="Search make, model, budget, or city (e.g. BMW 3 Series Manchester under £20k)...">
+        </div>
+
+        <div class="header-status-badge">
+          <i data-lucide="shield-check" style="color: var(--accent-cyan);"></i>
+          <span>100% Real Vehicle Photography • HPI Checked</span>
+          <button class="btn-outreach-sim" id="btnOpenOutreachSim" title="Test Live Seller Permission Outreach Simulator" style="margin-left: 10px; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer;">
+            <i data-lucide="message-square" style="width: 12px; height: 12px;"></i> Test Seller Outreach Sim
+          </button>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <section class="tab-view active" id="tab-showroom">
+        <!-- Voice Query Active Banner (Hidden by Default) -->
+        <div class="voice-query-banner" id="voiceQueryBanner" style="display: none;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <i data-lucide="mic" class="spin" style="color: var(--accent-cyan);"></i>
+            <div>
+              <strong style="font-size: 14px; color: var(--accent-cyan);">Voice Search Query Active:</strong>
+              <span id="voiceQueryText" style="font-size: 13px; color: var(--text-main); margin-left: 6px;">"Automatic BMW 3 Series under £20,000"</span>
+            </div>
+          </div>
+          <button class="btn-clear-voice" id="btnClearVoiceQuery">Clear Voice Filter</button>
+        </div>
+
+        <!-- Hero Customer Banner -->
+        <div class="customer-hero-banner">
+          <div>
+            <h1>Find YOUR Perfect Car Model &amp; Explore Variations</h1>
+            <p>Click any vehicle model card below to open its full-screen <strong>Model Variations Folder</strong> and compare all real photography listings!</p>
+          </div>
+          <div class="hero-trust-badges">
+            <span class="trust-pill"><i data-lucide="folder-search"></i> Model Variation Folders</span>
+            <span class="trust-pill"><i data-lucide="camera"></i> 100% Real Photography</span>
+            <span class="trust-pill"><i data-lucide="shield"></i> 7-Day Guarantee</span>
+          </div>
+        </div>
+
+        <div class="view-header">
+          <div>
+            <h2 id="categorySectionTitle">All Featured Vehicles</h2>
+            <p>Inspected vehicle models ready for exploration</p>
+          </div>
+
+          <div class="filter-controls">
+            <select id="filterMakeSelect">
+              <option value="ALL">All Makes</option>
+              <option value="BMW">BMW</option>
+              <option value="Audi">Audi</option>
+              <option value="Mercedes-Benz">Mercedes-Benz</option>
+              <option value="Volkswagen">Volkswagen</option>
+              <option value="Porsche">Porsche</option>
+              <option value="Ford">Ford</option>
+            </select>
+
+            <select id="filterSortSelect">
+              <option value="priceLow">Price: Low to High</option>
+              <option value="priceHigh">Price: High to Low</option>
+              <option value="yearNew">Year: Newest</option>
+              <option value="mileageLow">Mileage: Lowest</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="showroom-grid" id="showroomGridContainer">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Mandatory Legal Disclaimer Footer Bar -->
+        <footer class="legal-disclaimer-bar">
+          <i data-lucide="scale"></i>
+          <span><strong>YOURCARZ Customer Protection Notice:</strong> All vehicles listed on YOURCARZ undergo independent HPI validation. Holding deposits (£250) are held securely in escrow and are 100% refundable if the vehicle fails physical inspection. Finance estimates are subject to status.</span>
+        </footer>
+      </section>
+
+      <!-- TOP 10 RECOMMENDATIONS TAB -->
+      <section class="tab-view" id="tab-top10" style="display: none; padding: 20px 40px; max-width: 1200px; margin: 0 auto;">
+        <div style="background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.4); border-radius: 12px; padding: 16px 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 16px;">
+          <i data-lucide="shield-check" style="color: #F59E0B; width: 32px; height: 32px;"></i>
+          <div>
+            <strong style="color: #F59E0B; font-size: 16px;">✅ Verified & Checked Monthly</strong>
+            <div style="color: var(--text-muted); font-size: 13px;">This Top 10 List is verified against live UK market data and updated every 30 days.</div>
+          </div>
+        </div>
+
+        <h2 style="font-family: var(--font-heading); font-size: 32px; margin-bottom: 8px;">🏆 The Top 10 Ultimate Car Picks</h2>
+        <p style="color: var(--text-muted); margin-bottom: 32px;">Our meticulously curated list of the best cars available on the market right now.</p>
+
+        <div class="top10-list" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px;">
+          <!-- Items 1 to 10 -->
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 32px; font-weight: 900; color: #F59E0B; min-width: 40px;">1</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">Volkswagen Golf GTI / Golf R</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">The ultimate all-rounder. Unbeatable combination of performance, practicality, and desirability.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 32px; font-weight: 900; color: #E2E8F0; min-width: 40px;">2</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">BMW 3 Series (320d / 320i M Sport)</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">The executive benchmark. Incredible handling with fantastic everyday MPG.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 32px; font-weight: 900; color: #B45309; min-width: 40px;">3</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">Porsche Macan</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">The best driving SUV on the market. Holds its value impeccably well.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--text-muted); min-width: 40px;">4</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">Ford Fiesta (1.0 EcoBoost)</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">The definitive first car. Low insurance, cheap to run, and fun to drive.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--text-muted); min-width: 40px;">5</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">Range Rover Evoque</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">High visual desirability and prestige without the massive footprint.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--text-muted); min-width: 40px;">6</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">Audi A4 S Line</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">A beautifully refined interior with strong resale values across the board.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--text-muted); min-width: 40px;">7</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">BMW M4 Competition</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">Unrivaled performance for the price point. A true enthusiast's machine.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--text-muted); min-width: 40px;">8</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">Volvo XC60 R-Design</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">Class-leading safety, gorgeous Scandinavian design, and extremely practical.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--text-muted); min-width: 40px;">9</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">Volkswagen Polo</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">The grown-up small car. Feels much more premium than its competitors.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; background: #0F172A; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; gap: 24px;">
+            <div style="font-size: 28px; font-weight: 900; color: var(--text-muted); min-width: 40px;">10</div>
+            <div>
+              <h3 style="font-size: 18px; color: var(--text-main);">Mercedes-Benz E-Class</h3>
+              <p style="font-size: 13px; color: var(--text-muted);">The absolute king of long-distance cruising and executive comfort.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gearhead-feedback-section" style="background: #020617; border: 1px solid var(--accent-cyan); border-radius: 16px; padding: 32px;">
+          <h3 style="font-size: 20px; color: var(--accent-cyan); margin-bottom: 8px;">🤔 What do you think? (Gearhead Feedback)</h3>
+          <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Got your own idea of what belongs in the Top 10? Think we missed a legendary car? Submit your recommendations below and help shape our next monthly update!</p>
+          
+          <form id="gearheadFeedbackForm" style="display: flex; flex-direction: column; gap: 16px;" onsubmit="event.preventDefault(); window.submitGearheadFeedback();">
+            <input type="text" id="ghName" placeholder="Your Name or Alias" required style="background: #0F172A; border: 1px solid var(--border-color); color: #fff; padding: 12px 16px; border-radius: 8px;">
+            <textarea id="ghFeedback" rows="4" placeholder="I think the Audi RS3 should replace the Golf R because..." required style="background: #0F172A; border: 1px solid var(--border-color); color: #fff; padding: 12px 16px; border-radius: 8px; resize: vertical;"></textarea>
+            <button type="submit" class="btn btn-primary" style="align-self: flex-start; background: linear-gradient(135deg, #0284C7, #1E3A8A); color: #fff; font-weight: bold; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer;">Submit Feedback</button>
+            <div id="ghSuccessMsg" style="display: none; color: #00E676; font-size: 14px; font-weight: 600; margin-top: 8px;">✅ Thanks! Your feedback has been received and will be reviewed for the next update.</div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FLOATING CENTER AI VOICE SEARCH DOCK (Touch Target Optimized to 44x44 min) -->
+    <div class="floating-voice-dock" id="btnFloatingVoiceDock" style="min-height: 44px; min-width: 44px; padding: 12px 20px;">
+      <div class="dock-mic-icon" style="min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center;">
+        <i data-lucide="mic"></i>
+      </div>
+      <div class="dock-text">
+        <strong>Speak Your Car Query</strong>
+        <span>Click to filter by voice note</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL-SCREEN Car Model Variations Folder Modal -->
+  <div class="modal-overlay" id="modelFolderModal">
+    <div class="modal-card modal-fullscreen">
+      <div class="fullscreen-modal-top">
+        <div>
+          <h3 id="folderModelTitle" style="font-size: 26px; font-family: var(--font-heading); color: var(--accent-cyan);">📁 BMW 3 Series - Full-Screen Model Variations Folder</h3>
+          <p id="folderModelSubtitle" style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">Comparing all active real-photo listings for this car model</p>
+        </div>
+        <button class="btn-close" onclick="document.getElementById('modelFolderModal').classList.remove('active')" style="padding: 10px 16px; font-size: 16px;"><i data-lucide="x"></i> Close Folder</button>
+      </div>
+
+      <div class="fullscreen-modal-controls">
+        <input type="text" class="fullscreen-search-input" id="modalModelSearch" placeholder="Search within this car model (e.g. Automatic, M Sport, Blue, Manchester)...">
+      </div>
+
+      <div class="fullscreen-variations-grid" id="modelVariationsContainer">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Voice Note Search Modal -->
+  <div class="modal-overlay" id="voiceModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🎙️ AI Voice Car Assistant ("Speak Your Car")</h3>
+        <button class="btn-close" onclick="document.getElementById('voiceModal').classList.remove('active')"><i data-lucide="x"></i></button>
+      </div>
+      <div style="text-align: center; padding: 24px 10px;">
+        <div class="voice-pulse-ring" id="voicePulseCircle">
+          <i data-lucide="mic" style="width: 42px; height: 42px; color: var(--accent-cyan);"></i>
+        </div>
+        <h4 id="voiceStatusTitle" style="font-size: 18px; font-family: var(--font-heading); margin-top: 16px;">Listening... Speak Your Car Preference</h4>
+        <p id="voiceStatusSubtitle" style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">e.g. "Find me a white Audi A4 under £20,000 in Cheshire"</p>
+
+        <div class="sample-voice-chips">
+          <span class="chip-btn" onclick="window.simulateVoiceQuery('Automatic BMW 3 Series under £20k')">"Automatic BMW 3 Series under £20k"</span>
+          <span class="chip-btn" onclick="window.simulateVoiceQuery('First car under £12,000')">"First car under £12,000"</span>
+          <span class="chip-btn" onclick="window.simulateVoiceQuery('Porsche Macan SUV')">"Porsche Macan SUV"</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('voiceModal').classList.remove('active')" style="min-height: 44px; min-width: 44px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 7: POLITE MAINTENANCE FALLBACK UI -->
+  <div class="modal-overlay" id="globalMaintenanceUI" style="display: none; z-index: 999999; background: rgba(10, 13, 20, 0.95); align-items: center; justify-content: center;">
+    <div class="modal-card" style="text-align: center; padding: 40px 20px; border-color: #F59E0B; box-shadow: 0 10px 40px rgba(245, 158, 11, 0.2);">
+      <i data-lucide="wrench" style="width: 48px; height: 48px; color: #F59E0B; margin-bottom: 16px;"></i>
+      <h3 style="font-size: 22px; font-family: var(--font-heading); color: #F59E0B;">Scheduled Maintenance Pause</h3>
+      <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px; max-width: 300px; margin-left: auto; margin-right: auto;">
+        Our AI matching engines are currently undergoing a brief upgrade to serve you better. We'll be back online shortly.
+      </p>
+      <button class="btn btn-primary" onclick="window.location.reload()" style="margin-top: 24px; min-height: 44px; min-width: 120px;">Refresh Platform</button>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Seller Outreach & Permission Simulator Modal -->
+  <div class="modal-overlay" id="sellerOutreachModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>💬 Live FB Seller Outreach &amp; Permission Simulator</h3>
+        <button class="btn-close" onclick="document.getElementById('sellerOutreachModal').classList.remove('active')"><i data-lucide="x"></i></button>
+      </div>
+      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        Simulate a live Messenger conversation with a private Facebook car seller to test permission requests and dynamic NLP auto-responses.
+      </div>
+
+      <!-- Chat Simulation Container -->
+      <div class="sim-chat-box" id="simChatBox" style="background: #020617; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+        <div class="sim-msg bot-msg" style="background: rgba(56, 189, 248, 0.12); border: 1px solid var(--accent-cyan); padding: 10px 14px; border-radius: 12px; font-size: 13px; color: var(--text-main); align-self: flex-start; max-width: 85%;">
+          <strong>YOURCARZ Bot:</strong> Hi Marcus! We saw your 2021 BMW 3 Series listed on Facebook. We run YOURCARZ concierge platform. Is it still available, and would you be happy for us to feature it free to our verified buyers?
+        </div>
+      </div>
+
+      <!-- Sim Actions -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">Simulate Seller Response &amp; Haggle Actions:</span>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="window.sendSimSellerMsg('Grant Permission', 'Yeah that sounds great! Happy for you to feature it.')" style="font-size: 11px; padding: 6px 12px; border-color: var(--accent-emerald); color: var(--accent-emerald);">
+            👍 Grant Permission
+          </button>
+          <button class="btn btn-secondary" onclick="window.sendSimSellerMsg('Haggle Offer', 'I might take £17,000 if it is a guaranteed fast cash buyer.')" style="font-size: 11px; padding: 6px 12px; border-color: #F59E0B; color: #F59E0B;">
+            🏷️ Test Haggle Discount (-£1.5k Margin)
+          </button>
+          <button class="btn btn-secondary" onclick="window.sendSimSellerMsg('Extract Specs', 'Yes, it has Full Service History and 11 months MOT remaining.')" style="font-size: 11px; padding: 6px 12px; border-color: #A855F7; color: #A855F7;">
+            🔍 Test Spec Auto-Extraction
+          </button>
+          <button class="btn btn-secondary" onclick="window.sendSimSellerMsg('Ask Fees', 'How much does it cost me to list?')" style="font-size: 11px; padding: 6px 12px;">
+            ❓ Ask Fees Question
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer" style="margin-top: 16px;">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('sellerOutreachModal').classList.remove('active')">Close Simulator</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Claim My Listing & Crowdsourced Inaccuracy Feedback Modal -->
+  <div class="modal-overlay" id="claimListingModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🚗 Owner Verification &amp; Inaccuracy Feedback</h3>
+        <button class="btn-close" onclick="document.getElementById('claimListingModal').classList.remove('active')"><i data-lucide="x"></i></button>
+      </div>
+      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        Are you the private owner of this vehicle listing or reporting an inaccuracy? Verified car owners can claim or update listing details directly.
+      </div>
+      <form id="formClaimListing" style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+          <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Feedback Action</label>
+          <select id="claimActionType" style="width: 100%; background: #020617; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 12px; border-radius: 8px; font-size: 13px;">
+            <option value="claim_ownership">🔑 I am the Owner (Claim & Update Price/Specs)</option>
+            <option value="report_sold">❌ Vehicle Has Been Sold (Mark Inactive)</option>
+            <option value="report_inaccurate">⚠️ Inaccurate Specs / Wrong Location</option>
+            <option value="report_scam">🚨 Report Spam or Outlier Price</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Your Email or Phone Number</label>
+          <input type="text" id="claimContact" placeholder="e.g. 07123456789 or owner@gmail.com" required style="width: 100%; background: #020617; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 12px; border-radius: 8px; font-size: 13px;">
+        </div>
+        <div>
+          <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Additional Notes / Updated Price</label>
+          <textarea id="claimNotes" rows="2" placeholder="Provide proof of ownership or describe the correction..." style="width: 100%; background: #020617; border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 12px; border-radius: 8px; font-size: 13px;"></textarea>
+        </div>
+        <div class="modal-footer" style="margin-top: 8px; display: flex; gap: 8px; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('claimListingModal').classList.remove('active')">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="background: var(--accent-cyan); color: #0F172A; font-weight: 800;">Submit Verification Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- High-Tech Expanding Vehicle Details Window & Dropdown Selector Modal -->
+  <div class="modal-overlay" id="expandingVehicleModal">
+    <div class="modal-expanding-card" id="expandingModalCard">
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="badge-studio-verified" style="position: static; font-size: 12px; padding: 6px 14px;">✨ STUDIO VERIFIED</span>
+          <h2 id="expModalTitle" style="font-family: var(--font-heading); font-size: 22px; color: var(--text-main); font-weight: 800;">2021 BMW 3 Series 320i M Sport</h2>
+        </div>
+        <button class="btn-close" onclick="document.getElementById('expandingVehicleModal').classList.remove('active')" style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width: 24px; height: 24px;"></i></button>
+      </div>
+
+      <!-- Dropdown Selector for Ingested Model Variants -->
+      <div style="margin-bottom: 18px;">
+        <label style="font-size: 11px; font-weight: 800; color: var(--accent-cyan); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 6px;">
+          📂 Select Extracted Listing Variant:
+        </label>
+        <select id="expModelDropdown" class="vehicle-dropdown-select">
+          <option value="VAR-1">🚗 Listing #1: 2021 BMW 320i M Sport Auto (£18,450 - Manchester)</option>
+          <option value="VAR-2">🚗 Listing #2: 2020 BMW 320i Sport (£16,990 - Stockport)</option>
+          <option value="VAR-3">🚗 Listing #3: 2021 BMW 330e M Sport Hybrid (£21,500 - Wilmslow)</option>
+        </select>
+      </div>
+
+      <!-- Grid Content -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+        <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); background: #020617; position: relative;">
+          <img id="expModalImg" src="assets/vehicles/everyday/01_bmw_3series.jpg" style="width: 100%; height: 260px; object-fit: cover; display: block;" onerror="this.src='assets/vehicles/everyday/01_bmw_3series.jpg'">
+          <span style="position: absolute; bottom: 12px; left: 12px; background: rgba(15,23,42,0.9); padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; color: var(--accent-cyan);">
+            Studio Photography Suite
+          </span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="background: #020617; border: 1px solid var(--border-color); border-radius: 16px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+              <span style="font-size: 12px; color: var(--text-muted); font-weight: 700;">Direct Under-Market Price:</span>
+              <span id="expModalPrice" style="font-size: 28px; font-weight: 900; color: var(--accent-emerald);">£18,450</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+              <span style="color: var(--text-muted);">Estimated PCP Finance:</span>
+              <span id="expModalMonthly" style="color: var(--accent-cyan); font-weight: 800;">£328 / mo</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+              <span style="color: var(--text-muted);">MOT Status & Expiry:</span>
+              <span style="color: #00E676; font-weight: 700;">Valid (May 2027)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--text-muted);">HPI Check Result:</span>
+              <span style="color: var(--accent-cyan); font-weight: 700;">Verified Clear</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 16px;">
+            <button class="btn btn-primary" onclick="window.unlockContactFromModal()" style="flex: 1; background: linear-gradient(135deg, #0284C7, #1E3A8A); color: #FFF; font-weight: 800; padding: 12px;">
+              🔒 Unlock Contact (£49)
+            </button>
+            <button class="btn btn-secondary" onclick="window.openEsignatureModal()" style="flex: 1; font-weight: 800; padding: 12px;">
+              📝 E-Sign Contract
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="js/esignature.js"></script>
+  <script src="js/voice-assistant.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

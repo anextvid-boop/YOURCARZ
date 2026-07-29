@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "name": "yourcarz",
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "src/renderer/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.js"
+    },
+    {
+      "src": "/sitemap.xml",
+      "dest": "api/index.js"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/renderer/$1"
+    }
+  ]
+}
