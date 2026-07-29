@@ -325,7 +325,10 @@ document.addEventListener('DOMContentLoaded', async () => {
               ${item.viewMode === 'original' ? '📷 REAL FB PHOTO' : '✨ STUDIO WHITE'}
             </button>
 
-            <span class="badge-studio-verified">✨ STUDIO VERIFIED</span>
+            ${item.source === 'Selective Handpicked' 
+              ? '<span class="badge-studio-verified" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">💎 EXPERT CURATED</span>' 
+              : '<span class="badge-studio-verified">✨ STUDIO VERIFIED</span>'
+            }
           </div>
 
           <div class="card-body">

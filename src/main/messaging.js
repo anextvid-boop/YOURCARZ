@@ -122,10 +122,14 @@ class MessagingEngine {
     }
   }
 
-  // --- INITIAL OUTREACH CREATOR ---
+  // --- INITIAL OUTREACH CREATOR (Phase 3 Selective Handpicked) ---
   createInitialOutreachMessage(listing) {
     const sellerFirstName = (listing.sellerName || 'there').split(' ')[0];
-    return `Hi ${sellerFirstName}! Saw your ${listing.year} ${listing.make} ${listing.model} listed for £${listing.priceScraped}. We run YOURCARZ, a premier UK vehicle buyer network. We have pre-verified buyers looking for models like yours. Is it still available, and would you be happy for us to feature it free to our buyers?`;
+    const make = listing.make || 'vehicle';
+    const model = listing.model || '';
+    const offer = listing.priceScraped ? Math.floor(listing.priceScraped * 0.95) : 0; // 5% below asking
+    
+    return `Hi ${sellerFirstName}, I run a premium vehicle sourcing agency. We have a verified buyer looking for a ${make} ${model} exactly like yours. Would you accept £${offer} if we handled the collection and escrow today?`;
   }
 }
 
