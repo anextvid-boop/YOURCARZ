@@ -208,18 +208,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Customer Category Filtering with Signature "YOUR..." Branding
     if (state.activeCategory === 'FIRST_CAR') {
       filtered = filtered.filter(item => item.category === 'FIRST_CAR');
-      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `YOUR First Car (Top 10 Curated Studio Hatchbacks < £12.5k)`;
+      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `Top Recommendations: YOUR First Car`;
     } else if (state.activeCategory === 'EVERYDAY') {
       filtered = filtered.filter(item => item.category === 'EVERYDAY');
-      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `YOUR Everyday Car (Top 10 Curated Studio Family & SUV Models)`;
+      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `Top Recommendations: YOUR Everyday Car`;
     } else if (state.activeCategory === 'LUXURY') {
       filtered = filtered.filter(item => item.category === 'LUXURY');
-      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `YOUR Luxury Car (Top 10 Executive & Luxury Studio Models £25k+)`;
+      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `Top Recommendations: YOUR Luxury Car`;
     } else if (state.activeCategory === 'SPORTS') {
       filtered = filtered.filter(item => item.category === 'SPORTS');
-      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `YOUR Sports Car (Top 10 Performance Studio Models)`;
+      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `Top Recommendations: YOUR Sports Car`;
     } else {
-      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `All Featured Vehicles (40 Studio White Models Total)`;
+      if (elements.categorySectionTitle) elements.categorySectionTitle.textContent = `Top 10 Recommendations: All Featured Vehicles`;
     }
 
     // Voice Query Filter
@@ -329,28 +329,12 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
 
           <div class="card-body">
-            <h3 class="card-title">${item.title}</h3>
-            
-            <div class="specs-pills">
-              <span class="pill">${item.year}</span>
-              <span class="pill">${(item.mileage || 0).toLocaleString()} mi</span>
-              <span class="pill">${item.fuelType || 'Petrol'}</span>
-              <span class="pill">${item.transmission || 'Automatic'}</span>
-            </div>
+            <h3 class="card-title" style="margin-bottom: 8px;">${item.make} ${item.model}</h3>
+            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-weight: 600;">Category: ${catName}</div>
 
-            <div style="font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; margin-top: 4px;">
-              <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
-              <span>${item.location || 'Manchester, UK'}</span>
-            </div>
-
-            <div class="pricing-row">
+            <div class="pricing-row" style="margin-bottom: 0;">
               <div>
-                <div class="scraped-price">RRP: £${Math.round(cashPrice * 1.08).toLocaleString('en-GB')}</div>
-                <div class="resale-price">£${cashPrice.toLocaleString('en-GB')}</div>
-              </div>
-
-              <div class="finance-badge">
-                from £${monthlyEst}/mo PCP
+                <div class="resale-price" style="font-size: 24px;">£${cashPrice.toLocaleString('en-GB')}</div>
               </div>
             </div>
 
@@ -507,55 +491,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     elements.modelFolderModal?.classList.add('active');
   };
 
-  // --- FLOATING CENTER VOICE SEARCH ASSISTANT DOCK ---
-  function initVoiceAssistant() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    const startRecording = () => {
-      elements.voiceModal?.classList.add('active');
-
-      if (SpeechRecognition) {
-        const recognition = new SpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.lang = 'en-GB';
-
-        recognition.onstart = () => {
-          const title = document.getElementById('voiceStatusTitle');
-          if (title) title.textContent = 'Listening... Speak Your Car Preference';
-        };
-
-        recognition.onresult = (event) => {
-          const transcript = event.results[0][0].transcript;
-          window.simulateVoiceQuery(transcript);
-        };
-
-        recognition.onerror = () => {
-          const title = document.getElementById('voiceStatusTitle');
-          if (title) title.textContent = 'Speech not recognized. Select a voice query below:';
-        };
-
-        try { recognition.start(); } catch(e) {}
-      }
-    };
-
-    // --- VOICE MODAL HANDLERS (Floating Dock Removed) ---
-    if (elements.voiceModal && typeof lucide !== 'undefined') {
-      // We keep voice simulation logic in case the modal is triggered via another method (like search bar mic icon)
-      window.simulateVoiceQuery = function(queryText) {
-        state.voiceQueryText = queryText;
-        elements.voiceModal?.classList.remove('active');
-        renderShowroom();
-      };
-    }
-
-    if (elements.btnClearVoiceQuery) {
-      elements.btnClearVoiceQuery.addEventListener('click', () => {
-        state.voiceQueryText = '';
-        renderShowroom();
-      });
-    }
-  }
+  
 
   // Global toggle photo mode function for customer
   window.togglePhotoMode = (id) => {
@@ -685,6 +621,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  initVoiceAssistant();
+  
   loadInitialData();
 });

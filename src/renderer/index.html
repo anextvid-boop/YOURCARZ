@@ -91,33 +91,25 @@
 
       <!-- View Containers -->
       <section class="tab-view active" id="tab-showroom">
-        <!-- Voice Query Active Banner (Hidden by Default) -->
-        <div class="voice-query-banner" id="voiceQueryBanner" style="display: none;">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <i data-lucide="mic" class="spin" style="color: var(--accent-cyan);"></i>
-            <div>
-              <strong style="font-size: 14px; color: var(--accent-cyan);">Voice Search Query Active:</strong>
-              <span id="voiceQueryText" style="font-size: 13px; color: var(--text-main); margin-left: 6px;">"Automatic BMW 3 Series under £20,000"</span>
-            </div>
+        
           </div>
           <button class="btn-clear-voice" id="btnClearVoiceQuery">Clear Voice Filter</button>
         </div>
 
         <!-- Premium Hero Customer Banner -->
-        <div class="customer-hero-banner" style="background-image: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9)), url('assets/vehicles/sports/01_porsche_911.jpg'); background-size: cover; background-position: center; border-radius: 16px; padding: 60px 40px; text-align: center; margin-bottom: 32px; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+        <div class="customer-hero-banner" style="background-image: linear-gradient(rgba(2, 6, 23, 0.5), rgba(2, 6, 23, 0.8)), url('assets/hero_cars.png'); background-size: cover; background-position: center; border-radius: 16px; padding: 80px 40px; text-align: center; margin-bottom: 32px; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
           <div style="max-width: 800px; margin: 0 auto;">
-            <h1 style="font-family: var(--font-heading); font-size: 42px; font-weight: 900; color: #fff; margin-bottom: 16px; text-shadow: 0 4px 20px rgba(0,0,0,0.8);">Find YOUR Perfect Car Model</h1>
-            <p style="font-size: 16px; color: #94A3B8; max-width: 600px; margin: 0 auto;">Click any vehicle card below to explore its full-screen Model Variations Folder and compare all real photography listings!</p>
+            <h1 style="font-family: var(--font-heading); font-size: 48px; font-weight: 900; color: #fff; margin-bottom: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.8); letter-spacing: -1px;">Find YOUR Perfect Car</h1>
           </div>
         </div>
 
-        <div class="view-header">
-          <div>
-            <h2 id="categorySectionTitle">All Featured Vehicles</h2>
-            <p>Inspected vehicle models ready for exploration</p>
+        <div class="view-header" style="margin-top: 40px; margin-bottom: 24px;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <h2 id="categorySectionTitle" style="font-size: 32px; font-weight: 900;">Top Recommendations</h2>
+            <p style="color: var(--accent-cyan); font-weight: 700;">Inspected vehicle models ready for exploration</p>
           </div>
 
-          <div class="filter-controls">
+          <div class="filter-controls" style="display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;">
             <select id="filterMakeSelect">
               <option value="ALL">All Makes</option>
               <option value="BMW">BMW</option>
@@ -139,6 +131,14 @@
 
         <div class="showroom-grid" id="showroomGridContainer">
           <!-- Rendered via JS -->
+        </div>
+
+        <!-- SEO Optimized Informational Block -->
+        <div class="seo-info-block" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; margin-bottom: 32px; text-align: center;">
+          <h3 style="font-size: 18px; color: #fff; margin-bottom: 12px;">About YOURCARZ Selection</h3>
+          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 800px; margin: 0 auto;">
+            Click any vehicle card above to explore its full-screen Model Variations Folder and compare all real photography listings! We aggregate the highest quality pre-owned vehicles, ensuring every car meets our strict standards. Whether you're looking for a luxury SUV, an everyday commuter, or your very first car, YOURCARZ delivers unparalleled transparency.
+          </p>
         </div>
 
         <!-- Mandatory Legal Disclaimer & Trust Footer Bar -->
@@ -280,31 +280,7 @@
     </div>
   </div>
 
-  <!-- AI Voice Note Search Modal -->
-  <div class="modal-overlay" id="voiceModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>🎙️ AI Voice Car Assistant ("Speak Your Car")</h3>
-        <button class="btn-close" onclick="document.getElementById('voiceModal').classList.remove('active')"><i data-lucide="x"></i></button>
-      </div>
-      <div style="text-align: center; padding: 24px 10px;">
-        <div class="voice-pulse-ring" id="voicePulseCircle">
-          <i data-lucide="mic" style="width: 42px; height: 42px; color: var(--accent-cyan);"></i>
-        </div>
-        <h4 id="voiceStatusTitle" style="font-size: 18px; font-family: var(--font-heading); margin-top: 16px;">Listening... Speak Your Car Preference</h4>
-        <p id="voiceStatusSubtitle" style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">e.g. "Find me a white Audi A4 under £20,000 in Cheshire"</p>
-
-        <div class="sample-voice-chips">
-          <span class="chip-btn" onclick="window.simulateVoiceQuery('Automatic BMW 3 Series under £20k')">"Automatic BMW 3 Series under £20k"</span>
-          <span class="chip-btn" onclick="window.simulateVoiceQuery('First car under £12,000')">"First car under £12,000"</span>
-          <span class="chip-btn" onclick="window.simulateVoiceQuery('Porsche Macan SUV')">"Porsche Macan SUV"</span>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('voiceModal').classList.remove('active')" style="min-height: 44px; min-width: 44px;">Cancel</button>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- PHASE 7: POLITE MAINTENANCE FALLBACK UI -->
   <div class="modal-overlay" id="globalMaintenanceUI" style="display: none; z-index: 999999; background: rgba(10, 13, 20, 0.95); align-items: center; justify-content: center;">
