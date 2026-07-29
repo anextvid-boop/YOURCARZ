@@ -87,14 +87,6 @@
           <i data-lucide="search"></i>
           <input type="text" id="globalSearchInput" placeholder="Search make, model, budget, or city (e.g. BMW 3 Series Manchester under £20k)...">
         </div>
-
-        <div class="header-status-badge">
-          <i data-lucide="shield-check" style="color: var(--accent-cyan);"></i>
-          <span>100% Real Vehicle Photography • HPI Checked</span>
-          <button class="btn-outreach-sim" id="btnOpenOutreachSim" title="Test Live Seller Permission Outreach Simulator" style="margin-left: 10px; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer;">
-            <i data-lucide="message-square" style="width: 12px; height: 12px;"></i> Test Seller Outreach Sim
-          </button>
-        </div>
       </header>
 
       <!-- View Containers -->
@@ -337,47 +329,7 @@
     </div>
   </div>
 
-  <!-- Live Seller Outreach & Permission Simulator Modal -->
-  <div class="modal-overlay" id="sellerOutreachModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>💬 Live FB Seller Outreach &amp; Permission Simulator</h3>
-        <button class="btn-close" onclick="document.getElementById('sellerOutreachModal').classList.remove('active')"><i data-lucide="x"></i></button>
-      </div>
-      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-        Simulate a live Messenger conversation with a private Facebook car seller to test permission requests and dynamic NLP auto-responses.
-      </div>
-
-      <!-- Chat Simulation Container -->
-      <div class="sim-chat-box" id="simChatBox" style="background: #020617; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
-        <div class="sim-msg bot-msg" style="background: rgba(56, 189, 248, 0.12); border: 1px solid var(--accent-cyan); padding: 10px 14px; border-radius: 12px; font-size: 13px; color: var(--text-main); align-self: flex-start; max-width: 85%;">
-          <strong>YOURCARZ Bot:</strong> Hi Marcus! We saw your 2021 BMW 3 Series listed on Facebook. We run YOURCARZ concierge platform. Is it still available, and would you be happy for us to feature it free to our verified buyers?
-        </div>
-      </div>
-
-      <!-- Sim Actions -->
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">Simulate Seller Response &amp; Haggle Actions:</span>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <button class="btn btn-secondary" onclick="window.sendSimSellerMsg('Grant Permission', 'Yeah that sounds great! Happy for you to feature it.')" style="font-size: 11px; padding: 6px 12px; border-color: var(--accent-emerald); color: var(--accent-emerald);">
-            👍 Grant Permission
-          </button>
-          <button class="btn btn-secondary" onclick="window.sendSimSellerMsg('Haggle Offer', 'I might take £17,000 if it is a guaranteed fast cash buyer.')" style="font-size: 11px; padding: 6px 12px; border-color: #F59E0B; color: #F59E0B;">
-            🏷️ Test Haggle Discount (-£1.5k Margin)
-          </button>
-          <button class="btn btn-secondary" onclick="window.sendSimSellerMsg('Extract Specs', 'Yes, it has Full Service History and 11 months MOT remaining.')" style="font-size: 11px; padding: 6px 12px; border-color: #A855F7; color: #A855F7;">
-            🔍 Test Spec Auto-Extraction
-          </button>
-          <button class="btn btn-secondary" onclick="window.sendSimSellerMsg('Ask Fees', 'How much does it cost me to list?')" style="font-size: 11px; padding: 6px 12px;">
-            ❓ Ask Fees Question
-          </button>
-        </div>
-      </div>
-      <div class="modal-footer" style="margin-top: 16px;">
-        <button type="button" class="btn btn-secondary" onclick="document.getElementById('sellerOutreachModal').classList.remove('active')">Close Simulator</button>
-      </div>
-    </div>
-  </div>
+  <!-- Live Seller Outreach & Permission Simulator Modal (Removed for Cleanliness) -->
 
   <!-- Claim My Listing & Crowdsourced Inaccuracy Feedback Modal -->
   <div class="modal-overlay" id="claimListingModal">
@@ -468,11 +420,8 @@
           </div>
 
           <div style="display: flex; gap: 10px; margin-top: 16px;">
-            <button class="btn btn-primary" onclick="window.unlockContactFromModal()" style="flex: 1; background: linear-gradient(135deg, #0284C7, #1E3A8A); color: #FFF; font-weight: 800; padding: 12px;">
+            <button class="btn btn-primary" onclick="window.unlockContactFromModal()" style="flex: 1; background: linear-gradient(135deg, #0284C7, #1E3A8A); color: #FFF; font-weight: 800; padding: 12px; font-size: 16px;">
               🔒 Unlock Contact (£49)
-            </button>
-            <button class="btn btn-secondary" onclick="window.openEsignatureModal()" style="flex: 1; font-weight: 800; padding: 12px;">
-              📝 E-Sign Contract
             </button>
           </div>
         </div>

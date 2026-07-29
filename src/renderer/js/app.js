@@ -424,8 +424,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
               </div>
 
-              <button class="btn btn-primary btn-full" onclick="alert('💬 Connecting to Concierge Relay for ${item.title} (${item.location})')" style="font-size: 13px; padding: 10px; margin-top: 4px;">
-                <i data-lucide="message-square"></i> Contact Seller via Concierge Relay
+              <button class="btn btn-primary btn-full" onclick="window.unlockContactFromModal()" style="font-size: 13px; padding: 10px; margin-top: 4px; background: linear-gradient(135deg, #0284C7, #1E3A8A); color: #FFF; font-weight: 800;">
+                🔒 Unlock Contact (£49)
               </button>
             </div>
           `;
@@ -536,48 +536,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
-  // --- LIVE SELLER OUTREACH SIMULATOR ---
-  const btnOpenOutreachSim = document.getElementById('btnOpenOutreachSim');
-  const sellerOutreachModal = document.getElementById('sellerOutreachModal');
-  const simChatBox = document.getElementById('simChatBox');
-
-  if (btnOpenOutreachSim && sellerOutreachModal) {
-    btnOpenOutreachSim.addEventListener('click', () => {
-      sellerOutreachModal.classList.add('active');
-    });
-  }
-
-  window.sendSimSellerMsg = (actionType, text) => {
-    if (!simChatBox) return;
-
-    // Append Seller Message
-    const sellerMsgDiv = document.createElement('div');
-    sellerMsgDiv.style.cssText = 'background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: 12px; font-size: 13px; color: var(--text-main); align-self: flex-end; max-width: 85%;';
-    sellerMsgDiv.innerHTML = `<strong>Marcus (FB Seller):</strong> ${text}`;
-    simChatBox.appendChild(sellerMsgDiv);
-    simChatBox.scrollTop = simChatBox.scrollHeight;
-
-    // Trigger Bot NLP Auto-Reply
-    setTimeout(() => {
-      const botMsgDiv = document.createElement('div');
-      botMsgDiv.style.cssText = 'background: rgba(56, 189, 248, 0.12); border: 1px solid var(--accent-cyan); padding: 10px 14px; border-radius: 12px; font-size: 13px; color: var(--text-main); align-self: flex-start; max-width: 85%;';
-
-      if (actionType === 'Grant Permission') {
-        botMsgDiv.innerHTML = `<strong>YOURCARZ Bot:</strong> Fantastic! Your featured listing preview is live here: <strong style="color: var(--accent-cyan);">http://localhost:8095/preview/CAR-SHOWCASE-001</strong>. We will notify you the moment a verified buyer reserves it!`;
-      } else if (actionType === 'Haggle Offer') {
-        botMsgDiv.innerHTML = `<strong>YOURCARZ Bot:</strong> <span style="color: #F59E0B; font-weight: 700;">🏷️ HAGGLE AGREED:</span> Deal price locked at <strong>£17,000</strong> (-£1,500 under asking). Margin expanded for buyer deal! We are locking in your £250 escrow buyer now.`;
-      } else if (actionType === 'Extract Specs') {
-        botMsgDiv.innerHTML = `<strong>YOURCARZ Bot:</strong> <span style="color: #A855F7; font-weight: 700;">🔍 VITAL SPECS CAPTURED:</span> Recorded <strong>Full Service History (FSH)</strong> & <strong>11 Months MOT</strong>. Your vehicle listing is now 100% verified!`;
-      } else if (actionType === 'Ask Fees') {
-        botMsgDiv.innerHTML = `<strong>YOURCARZ Bot:</strong> Listing is 100% free for you! We only charge our buyers a small brokerage fee on final completion. You receive 100% of your asking price.`;
-      } else if (actionType === 'Ask Escrow') {
-        botMsgDiv.innerHTML = `<strong>YOURCARZ Bot:</strong> We collect a £250 holding deposit held safely in Stripe Escrow before any test drive or inspection is booked, ensuring only 100% pre-qualified buyers contact you.`;
-      }
-
-      simChatBox.appendChild(botMsgDiv);
-      simChatBox.scrollTop = simChatBox.scrollHeight;
-    }, 600);
-  };
+  // --- SIMULATORS REMOVED FOR CLEAN ARBITRAGE UI ---
 
   // --- EXPANDING VEHICLE DETAILS MODAL & DROPDOWN HANDLERS ---
   window.openExpandingModal = function(id) {
@@ -612,10 +571,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   window.unlockContactFromModal = function() {
     alert('🔒 Initiating Stripe £49 Contact Unlock Session... Phone number & Facebook Direct Messenger details unlocked upon payment!');
-  };
-
-  window.openEsignatureModal = function() {
-    alert('📝 Launching Digital E-Signature Bill of Sale Canvas...');
   };
 
   // Wire card click event to open expanding modal
